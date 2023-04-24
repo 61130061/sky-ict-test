@@ -23,7 +23,10 @@ function App() {
         const marker = L.marker([pos.lat, pos.lon], {
           icon: L.divIcon({
             html: renderToString(
-              <div className="marker" style={{ backgroundColor: pos.color }} />
+              <div>
+                <div className="heartbeat" style={{ backgroundColor: pos.color }} />
+                <div className="dot" style={{ backgroundColor: pos.color }} />
+              </div>
             ),
             className: "marker-container",
           }),
@@ -61,7 +64,7 @@ function App() {
       map.current.remove();
     }
     if (mapRef.current) {
-      map.current = L.map(mapRef.current).setView([51.505, -0.09], 13);
+      map.current = L.map(mapRef.current).setView([13.736717, 100.523186], 8);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution:
@@ -70,7 +73,7 @@ function App() {
 
       const interval = setInterval(() => {
         setPositions([...genRandomPositions(300000)]);
-      }, 3000);
+      }, 5000);
 
       return () => clearInterval(interval);
     }

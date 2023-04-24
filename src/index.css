@@ -18,8 +18,28 @@ body {
   margin: 0;
 }
 
-.marker {
-  height: 50px;
-  width: 50px;
-  border-radius: 99999px;
+.dot {
+  position: relative;
+  width: fit-content;
+  border-radius: 40px;
+  width: 30px;
+  height: 30px;
+}
+
+.heartbeat {
+  position: absolute;
+  width: fit-content;
+  border-radius: 40px;
+  width: 30px;
+  height: 30px;
+  opacity: 0.75;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
