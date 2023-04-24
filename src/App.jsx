@@ -9,6 +9,7 @@ function App() {
   const map = useRef(null);
   const mapRef = useRef(null);
 
+
   useEffect(() => {
     if (map.current) {
       map.current.eachLayer((layer) => {
@@ -17,14 +18,20 @@ function App() {
         }
       });
 
-      const markers = L.markerClusterGroup();
+      const markers = L.markerClusterGroup({
+        animate: false,
+        showCoverageOnHover: false,
+      });
 
       showPos.forEach((pos) => {
         const marker = L.marker([pos.lat, pos.lon], {
           icon: L.divIcon({
             html: renderToString(
               <div>
-                <div className="heartbeat" style={{ backgroundColor: pos.color }} />
+                <div
+                  className="heartbeat"
+                  style={{ backgroundColor: pos.color }}
+                />
                 <div className="dot" style={{ backgroundColor: pos.color }} />
               </div>
             ),
@@ -36,7 +43,7 @@ function App() {
 
       map.current.addLayer(markers);
     }
-  }, [showPos, map.current]);
+  }, [showPos]);
 
   useEffect(() => {
     if (map.current) {
@@ -48,7 +55,6 @@ function App() {
         });
         setShowPos([...filteredPos]);
       }
-
       handleMoveEnd();
 
       map.current.on("moveend", handleMoveEnd);
@@ -73,7 +79,7 @@ function App() {
 
       const interval = setInterval(() => {
         setPositions([...genRandomPositions(300000)]);
-      }, 5000);
+      }, 1000);
 
       return () => clearInterval(interval);
     }
