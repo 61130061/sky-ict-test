@@ -1,17 +1,18 @@
 export function genRandomPositions(numPositions) {
-  const positions = [];
+  // Define the range of latitudes and longitudes
+  const minLat = -90;
+  const maxLat = 90;
+  const minLon = -180;
+  const maxLon = 180;
 
-  for (let i = 0; i < numPositions; i++) {
-    const lat = (Math.random() * 180) - 90;
-    const lon = (Math.random() * 360) - 180;
-    positions.push({
-      lat, 
-      lon,
-      color: genRandomHexColor()
-    });
-  }
+  // Generate the random points
+  const points = Array.from({ length: numPositions }, () => ({
+    lat: Math.random() * (maxLat - minLat) + minLat,
+    lon: Math.random() * (maxLon - minLon) + minLon,
+    color: genRandomHexColor()
+  }));// Define the range of latitudes and longitudes
 
-  return positions;
+  return points;
 }
 
 export function genRandomHexColor() {
