@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { renderToString } from 'react-dom/server';
 
 import { genRandomPositions } from './utils';
@@ -9,8 +9,9 @@ function App() {
   const mapRef = useRef(null);
   const isZoom = useRef(false);
 
-  function clearLayers() {
+  function clearLayers(markers) {
     if (map.current) {
+      if (map.current.markers) map.current.markers.clearLayers();
       map.current.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
           layer.remove();
@@ -19,7 +20,7 @@ function App() {
     }
   }
 
-  function updateMap (newPos) {
+  const updateMap = useCallback((newPos) => {
     if (map.current && !isZoom.current) {
       clearLayers();
 
@@ -63,8 +64,9 @@ function App() {
       });
 
       map.current.addLayer(markers);
+      map.current.markers = markers;
     }
-  }
+  }, [positions])
 
   useEffect(() => {
     if (map.current) {
