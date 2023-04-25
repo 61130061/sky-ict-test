@@ -19,3 +19,7 @@ yarn dev
 ### Stack
 - React
 - Leaflet
+
+
+## Bug
+- [ ] Data update while moving map causing markers render twice old markers and then new markers
